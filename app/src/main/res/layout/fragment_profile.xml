@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.carbonfootprintcalculation.dashboard.ProfileFragment" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/frontConstraint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/margin_10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/profileTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_19"
+                    android:text="@string/profile"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/page_title_text_color"
+                    android:textSize="@dimen/title_text_size"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_22"
+                    android:layout_marginRight="@dimen/margin_27"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profileTv">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/profileCv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_20"
+                        app:cardCornerRadius="@dimen/margin_10">
+
+                        <ImageView
+                            android:layout_width="68dp"
+                            android:layout_height="68dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/logo" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/btnEditProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_103"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/profileCv"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toRightOf="@+id/profile"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/fullNameTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_10"
+                                android:text="ProfileName"
+                                android:textColor="@color/page_title_text_color"
+                                android:textColorHint="@color/hint_text_color"
+                                android:textSize="@dimen/text_size_20"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/phoneNumberTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_9"
+                                android:layout_marginBottom="@dimen/margin_10"
+                                android:text="phone number"
+                                android:textColor="@color/page_title_text_color"
+                                android:textSize="@dimen/text_size"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/fullNameTv" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <ImageView
+                            android:id="@+id/profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_right"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/firstCv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_size"
+                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginRight="@dimen/text_size"
+                android:backgroundTint="@color/white"
+                app:cardCornerRadius="@dimen/margin_8"
+                app:cardMaxElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frontConstraint">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Your Car Details"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:gravity="center"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="@dimen/margin_12">
+
+                    <TextView
+                        android:id="@+id/carCcIv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Car Engin size : "
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/ccTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="cc"
+                        android:textColor="@color/page_title_text_color"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/carCcIv"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/carFuelType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_70"
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_12">
+
+                    <TextView
+                        android:id="@+id/fuelTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Car Fuel Type : "
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/fuelTypeTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_15"
+                        android:text="your fuel type"
+                        android:textColor="@color/page_title_text_color"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/fuelTv"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/threeCv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginRight="@dimen/margin_15"
+                android:layout_marginBottom="@dimen/margin_26"
+                android:backgroundTint="@color/white"
+                app:cardCornerRadius="@dimen/margin_8"
+                app:cardMaxElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstCv">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btnSignOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:layout_marginRight="@dimen/margin_12"
+                    android:layout_marginBottom="@dimen/margin_20">
+
+                    <ImageView
+                        android:id="@+id/logoutIv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_logout"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/logoutTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_15"
+                        android:text="Logout"
+                        android:textColor="@color/page_title_text_color"
+                        android:textSize="@dimen/text_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/logoutIv"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "906024007621",
+    "project_id": "carbonfootprint-e77e5",
+    "storage_bucket": "carbonfootprint-e77e5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906024007621:android:c1e24b4c0b5a002145bdac",
+        "android_client_info": {
+          "package_name": "com.example.carbonfootprintcalculation"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT1hncdlbrCXCZPkUqAu71-YR2PIGJ1Qo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

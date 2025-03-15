@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">CarbonFootprintCalculation</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    //create account page
+    <string name="title_create_account">Create New Account</string>
+    <string name="hint_full_name">Full Name</string>
+    <string name="hint_phone_number">Phone number</string>
+    <string name="hint_location">Your location</string>
+    <string name="hint_dob">Date of Birth</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="create_button_text">Continue</string>
+    <string name="error_name">name can not be empty</string>
+    <string name="error_number">Must be more then 11 letter</string>
+    <string name="auth_massage">Authentication Successful</string>
+    <string name="update_massage">Update Successful</string>
+
+
+    //Login page
+    <string name="login_text">Login</string>
+    <string name="login_error_msg">Oh no! Your account or password is incorrect, please check again.</string>
+    <string name="login">Login</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot Password!</string>
+    <string name="sign_in">Sign In</string>
+    <string name="error_email">Invalid email</string>
+    <string name="recover">Please enter your Email so we can help you recover your password.</string>
+    <string name="next">Next</string>
+    <string name="sign_up">Sign Up</string>
+
+    //Bottom Navigation Menu
+    <string name="menu_home_title">Home</string>
+    <string name="menu_contact">Contact</string>
+    <string name="profile">Profile</string>
+
+    //DashBoard
+    <string name="car_title">Car</string>
+    <string name="transport_title">Public Transport</string>
+    <string name="food_title">Food</string>
+    <string name="setProfile_title">Set Profile</string>
+    <string name="editProfile_title">Edit Profile</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_pdf_viewer">PdfViewerActivity</string>
+    <string name="userViewProfile_title">User Details</string>
+
+
+</resources>
