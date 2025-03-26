@@ -12,5 +12,13 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+dependencyResolutionManagement {
+    repositories {
+        maven { url 'https://jitpack.io' }
+        // other repositories
+    }
+}
+
 rootProject.name = "CarbonFootprintCalculation"
 include ':app'
