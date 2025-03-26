@@ -1,7 +1,7 @@
 package com.example.carbonfootprintcalculation.dashboard.model
 
 data class User(
-    val userId: String = "",
-    val userName: String = "",
-    val userEmail: String = ""
+    var uid: String? = "",
+    val name: String = "",
+    val email: String = ""
 )

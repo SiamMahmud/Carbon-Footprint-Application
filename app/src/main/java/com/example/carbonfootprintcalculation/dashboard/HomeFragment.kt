@@ -55,7 +55,6 @@ class HomeFragment : Fragment() {
                 binding.adminUserViewCv.visibility = View.VISIBLE
             }  else if (it.hasChild("User")) {
                 binding.carCv.visibility = View.VISIBLE
-                binding.adminUserViewCv.visibility = View.VISIBLE
                 binding.publicTransCV.visibility = View.VISIBLE
                 binding.foodCv.visibility = View.VISIBLE
                 binding.setProfileCv.visibility = View.VISIBLE
