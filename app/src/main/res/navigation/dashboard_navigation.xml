@@ -91,6 +91,9 @@
         <action
             android:id="@+id/action_viewCarResultFragment_to_carFragment"
             app:destination="@id/carFragment" />
+        <action
+            android:id="@+id/action_viewCarResultFragment_to_adminUserViewFragment"
+            app:destination="@id/adminUserViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewPublicTransportResultFragment"
@@ -118,5 +121,8 @@
         <action
             android:id="@+id/action_adminUserViewFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_adminUserViewFragment_to_viewCarResultFragment"
+            app:destination="@id/viewCarResultFragment" />
     </fragment>
 </navigation>
