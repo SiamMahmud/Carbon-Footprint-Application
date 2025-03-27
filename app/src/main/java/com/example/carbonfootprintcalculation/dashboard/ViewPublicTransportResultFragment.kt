@@ -18,6 +18,11 @@ import com.example.carbonfootprintcalculation.databinding.FragmentViewPublicTran
 import com.example.carbonfootprintcalculation.presentation.adapter.CarAdapter
 import com.example.carbonfootprintcalculation.presentation.adapter.PublicTransportAdapter
 import com.example.carbonfootprintcalculation.util.SMMActivityUtil
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -31,7 +36,7 @@ import javax.inject.Inject
 class ViewPublicTransportResultFragment : Fragment() {
     private lateinit var binding: FragmentViewPublicTransportResultBinding
     private lateinit var adapter: PublicTransportAdapter
-    private lateinit var database: DatabaseReference
+    private lateinit var lineChart: LineChart
 
     @Inject
     lateinit var activityUtil: SMMActivityUtil
@@ -53,10 +58,15 @@ class ViewPublicTransportResultFragment : Fragment() {
         adapter = PublicTransportAdapter(mutableListOf())
         binding.transportResultListRecycle.adapter = adapter
 
+        lineChart = binding.lineChart
+        setupLineChart()
+
         fetchCarData()
 
         return binding.root
     }
+
+
 
     private fun fetchCarData() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -76,8 +86,9 @@ class ViewPublicTransportResultFragment : Fragment() {
         transRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val transportResults = mutableListOf<PublicTransportResult>()
-                var totalEmissionRate = 0.0
+                val emissionData = mutableListOf<Entry>()
                 if (snapshot.exists()) {
+                    var index = 0
                     for (snap in snapshot.children) {
                         val transportType = snap.child("transportType").getValue(String::class.java) ?: ""
                         val distance = snap.child("distance").getValue(Double::class.java) ?: 0.0
@@ -93,11 +104,16 @@ class ViewPublicTransportResultFragment : Fragment() {
 
                         Log.d("TransportData", "Loaded item: $result")
                         transportResults.add(result)
-                        totalEmissionRate+=emissionRate
+                        emissionData.add(Entry(index.toFloat(), emissionRate.toFloat()))
+                        index++
                     }
-
                     adapter.updateData(transportResults)
-                    binding.totalEmissionTv.text = "Total Carbon Emission: $totalEmissionRate kg CO₂"
+
+                    val totalEmission = emissionData.sumOf { it.y.toDouble() }
+                    binding.totalEmissionTv.text = "Total Carbon Emission: %.2f kg CO₂".format(totalEmission)
+
+                    updateLineChart(emissionData)
+
                     Toast.makeText(requireContext(), "Data loaded: ${transportResults.size} items", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.d("Firebase", "No data found in carCarbonFootprint")
@@ -110,6 +126,36 @@ class ViewPublicTransportResultFragment : Fragment() {
                 Toast.makeText(requireContext(), "Error: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun setupLineChart() {
+        lineChart.description.isEnabled = false
+        lineChart.setTouchEnabled(true)
+        lineChart.isDragEnabled = true
+        lineChart.setScaleEnabled(true)
+
+        val xAxis = lineChart.xAxis
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+
+        val leftAxis = lineChart.axisLeft
+        leftAxis.setDrawGridLines(true)
+
+        val rightAxis = lineChart.axisRight
+        rightAxis.isEnabled = false
+    }
+
+    private fun updateLineChart(entries: List<Entry>) {
+        val dataSet = LineDataSet(entries, "Carbon Emission (kg CO₂)")
+        dataSet.color = resources.getColor(R.color.colorPrimary, null)
+        dataSet.valueTextColor = resources.getColor(R.color.black, null)
+        dataSet.lineWidth = 2f
+        dataSet.setCircleColor(resources.getColor(R.color.hint_text_color, null))
+        dataSet.circleRadius = 4f
+
+        val lineData = LineData(dataSet)
+        lineChart.data = lineData
+        lineChart.invalidate()
     }
 
 }

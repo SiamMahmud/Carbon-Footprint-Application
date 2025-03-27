@@ -19,6 +19,11 @@ import com.example.carbonfootprintcalculation.databinding.FragmentViewPublicTran
 import com.example.carbonfootprintcalculation.presentation.adapter.FoodAdapter
 import com.example.carbonfootprintcalculation.presentation.adapter.PublicTransportAdapter
 import com.example.carbonfootprintcalculation.util.SMMActivityUtil
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -32,6 +37,7 @@ class FoodResultFragment : Fragment() {
 
     private lateinit var binding: FragmentFoodResultBinding
     private lateinit var adapter: FoodAdapter
+    private lateinit var lineChart: LineChart
 
     @Inject
     lateinit var activityUtil: SMMActivityUtil
@@ -52,6 +58,9 @@ class FoodResultFragment : Fragment() {
         binding.foodResultListRecycle.layoutManager = LinearLayoutManager(activity)
         adapter = FoodAdapter(mutableListOf())
         binding.foodResultListRecycle.adapter = adapter
+
+        lineChart = binding.lineChart
+        setupLineChart()
 
         fetchCarData()
 
@@ -76,9 +85,10 @@ class FoodResultFragment : Fragment() {
         foodRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val foodResults = mutableListOf<FoodResult>()
-                var totalCarbonEmission = 0.0
+                val emissionData = mutableListOf<Entry>()
 
                 if (snapshot.exists()) {
+                    var index = 0
                     for (snap in snapshot.children) {
                         val foodType = snap.child("foodType").getValue(String::class.java) ?: ""
                         val quantity = snap.child("quantity").getValue(Double::class.java) ?: 0.0
@@ -92,11 +102,17 @@ class FoodResultFragment : Fragment() {
 
                         Log.d("FoodData", "Loaded item: $result")
                         foodResults.add(result)
-                        totalCarbonEmission +=emission
+                        emissionData.add(Entry(index.toFloat(), emission.toFloat()))
+                        index++
                     }
 
                     adapter.updateData(foodResults)
-                    binding.totalEmissionTv.text ="Total Carbon Emission: $totalCarbonEmission kg CO₂"
+
+                    val totalEmission = emissionData.sumOf { it.y.toDouble() }
+                    binding.totalEmissionTv.text = "Total Carbon Emission: %.2f kg CO₂".format(totalEmission)
+
+                    updateLineChart(emissionData)
+
                     Toast.makeText(requireContext(), "Data loaded: ${foodResults.size} items", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.d("Firebase", "No data found in FoodCarbonFootprint")
@@ -109,6 +125,37 @@ class FoodResultFragment : Fragment() {
             }
         })
     }
+
+    private fun setupLineChart() {
+        lineChart.description.isEnabled = false
+        lineChart.setTouchEnabled(true)
+        lineChart.isDragEnabled = true
+        lineChart.setScaleEnabled(true)
+
+        val xAxis = lineChart.xAxis
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+
+        val leftAxis = lineChart.axisLeft
+        leftAxis.setDrawGridLines(true)
+
+        val rightAxis = lineChart.axisRight
+        rightAxis.isEnabled = false
+    }
+
+    private fun updateLineChart(entries: List<Entry>) {
+        val dataSet = LineDataSet(entries, "Carbon Emission (kg CO₂)")
+        dataSet.color = resources.getColor(R.color.colorPrimary, null)
+        dataSet.valueTextColor = resources.getColor(R.color.black, null)
+        dataSet.lineWidth = 2f
+        dataSet.setCircleColor(resources.getColor(R.color.hint_text_color, null))
+        dataSet.circleRadius = 4f
+
+        val lineData = LineData(dataSet)
+        lineChart.data = lineData
+        lineChart.invalidate()
+    }
+
 
 
 
