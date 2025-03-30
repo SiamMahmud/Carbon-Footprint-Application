@@ -1,11 +1,11 @@
 package com.example.carbonfootprintcalculation.dashboard
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
@@ -47,13 +47,32 @@ class AdminUserViewFragment : Fragment() {
         adapter = AdminViewUserAdapter(UserArray, requireContext())
         binding.adminViewUserListRecycle.adapter = adapter
         viewUser()
-        adapter.onItemClick = {
-            val bundle = Bundle()
-            bundle.putString("id",it.uid)
-            findNavController().navigate(R.id.action_adminUserViewFragment_to_viewCarResultFragment,bundle)
+        adapter.onItemClick = { user ->
+            showOptionsPopup(user.uid)
+
         }
         return binding.root
     }
+
+    private fun showOptionsPopup(userId: String?) {
+        val popup = PopupMenu(requireContext(), binding.adminViewUserListRecycle)
+        popup.menuInflater.inflate(R.menu.user_result_options_menu, popup.menu)
+
+        popup.setOnMenuItemClickListener { menuItem ->
+            val bundle = Bundle().apply {
+                putString("id", userId)
+            }
+            when (menuItem.itemId) {
+                R.id.viewCarResult -> findNavController().navigate(R.id.action_adminUserViewFragment_to_viewCarResultFragment, bundle)
+                R.id.viewPublicTransportResult -> findNavController().navigate(R.id.action_adminUserViewFragment_to_viewPublicTransportResultFragment, bundle)
+                R.id.viewFoodResult -> findNavController().navigate(R.id.action_adminUserViewFragment_to_foodResultFragment, bundle)
+            }
+            true
+        }
+        popup.show()
+
+    }
+
     private fun viewUser() {
         database = FirebaseDatabase.getInstance().getReference("User")
         database.addValueEventListener(object: ValueEventListener {

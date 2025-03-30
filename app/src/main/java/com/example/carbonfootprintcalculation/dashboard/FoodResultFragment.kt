@@ -68,7 +68,7 @@ class FoodResultFragment : Fragment() {
     }
 
     private fun fetchCarData() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val userId = arguments?.getString("id") ?: FirebaseAuth.getInstance().currentUser?.uid
         if (userId == null) {
             Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
             Log.e("Firebase", "User ID is null")

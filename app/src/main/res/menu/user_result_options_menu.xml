@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/viewCarResult"
+        android:title="View Car Result" />
+    <item
+        android:id="@+id/viewPublicTransportResult"
+        android:title="View Public Transport Result" />
+    <item
+        android:id="@+id/viewFoodResult"
+        android:title="View Food Result" />
+</menu>
