@@ -103,6 +103,9 @@
         <action
             android:id="@+id/action_viewPublicTransportResultFragment_to_publicTransportFragment"
             app:destination="@id/publicTransportFragment" />
+        <action
+            android:id="@+id/action_viewPublicTransportResultFragment_to_adminUserViewFragment"
+            app:destination="@id/adminUserViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/foodResultFragment"
@@ -112,6 +115,9 @@
         <action
             android:id="@+id/action_foodResultFragment_to_foodFragment"
             app:destination="@id/foodFragment" />
+        <action
+            android:id="@+id/action_foodResultFragment_to_adminUserViewFragment"
+            app:destination="@id/adminUserViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminUserViewFragment"
@@ -124,5 +130,11 @@
         <action
             android:id="@+id/action_adminUserViewFragment_to_viewCarResultFragment"
             app:destination="@id/viewCarResultFragment" />
+        <action
+            android:id="@+id/action_adminUserViewFragment_to_foodResultFragment"
+            app:destination="@id/foodResultFragment" />
+        <action
+            android:id="@+id/action_adminUserViewFragment_to_viewPublicTransportResultFragment"
+            app:destination="@id/viewPublicTransportResultFragment" />
     </fragment>
 </navigation>
