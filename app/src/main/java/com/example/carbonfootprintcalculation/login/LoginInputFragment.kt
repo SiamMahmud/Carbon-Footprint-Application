@@ -66,8 +66,11 @@ class LoginInputFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun login(email: String, password: String) {
         if (email.isNotEmpty() && password.isNotEmpty()) {
+            binding.loginErrorTv.visibility = View.GONE
+            activityUtil.setFullScreenLoading(true)
+
             auth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener(OnSuccessListener<AuthResult> {
+                .addOnSuccessListener { authResult ->
                     val uid = FirebaseAuth.getInstance().currentUser!!.uid
                     database = FirebaseDatabase.getInstance().getReference("User").child(uid)
                     database.get().addOnSuccessListener { data ->
@@ -78,10 +81,19 @@ class LoginInputFragment : Fragment() {
                                 activity?.let {
                                     startActivity(MainActivity.getLaunchIntent(it))
                                 }
-                            }, 3000)
+                            }, 500)
                         }
                     }
-                })
+                }
+                .addOnFailureListener { exception ->
+                    // Show the error message in loginErrorTv
+                    binding.loginErrorTv.text = exception.localizedMessage
+                    binding.loginErrorTv.visibility = View.VISIBLE
+                    activityUtil.setFullScreenLoading(false)
+                }
+        } else {
+            binding.loginErrorTv.visibility = View.VISIBLE
         }
     }
+
 }

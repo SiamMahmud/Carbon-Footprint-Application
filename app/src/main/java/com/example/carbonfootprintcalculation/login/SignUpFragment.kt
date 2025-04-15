@@ -53,24 +53,62 @@ class SignUpFragment : Fragment() {
 
 
     private fun registerUser() {
+        val fullName = binding.fullNameEt.text.toString().trim()
         val email = binding.emailEt.text.toString().trim()
+        val phone = binding.phoneNumberEt.text.toString().trim()
         val password = binding.passwordEt.text.toString().trim()
+        val confirmPassword = binding.confirmPassEt.text.toString().trim()
 
-        if (email.isNotEmpty() && password.isNotEmpty()) {
-            activityUtil.setFullScreenLoading(true)
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(requireActivity()) { task ->
-                    activityUtil.setFullScreenLoading(false)
-                    if (task.isSuccessful) {
-                        saveData()
-                        Toast.makeText(activity, getString(R.string.auth_massage), Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_signUpFragment_to_loginInputFragment)
-                    } else {
-                        Toast.makeText(activity, task.exception?.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
+        // Validate full name
+        if (fullName.isEmpty()) {
+            binding.fullNameEt.error = "Full name is required"
+            return
         }
+
+        // Validate email
+        if (email.isEmpty()) {
+            binding.emailEt.error = "Email is required"
+            return
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.emailEt.error = "Enter a valid email"
+            return
+        }
+
+        if (phone.isEmpty()) {
+            binding.phoneNumberEt.error = "Phone number is required"
+            return
+        } else if (phone.length < 10) {
+            binding.phoneNumberEt.error = "Enter a valid phone number"
+            return
+        }
+        if (password.isEmpty()) {
+            binding.passwordEt.error = "Password is required"
+            return
+        } else if (password.length < 6) {
+            binding.passwordEt.error = "Password must be at least 6 characters"
+            return
+        }
+        if (confirmPassword.isEmpty()) {
+            binding.confirmPassEt.error = "Please confirm your password"
+            return
+        } else if (password != confirmPassword) {
+            binding.confirmPassEt.error = "Passwords do not match"
+            return
+        }
+        activityUtil.setFullScreenLoading(true)
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(requireActivity()) { task ->
+                activityUtil.setFullScreenLoading(false)
+                if (task.isSuccessful) {
+                    saveData()
+                    Toast.makeText(activity, getString(R.string.auth_massage), Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_signUpFragment_to_loginInputFragment)
+                } else {
+                    Toast.makeText(activity, task.exception?.message, Toast.LENGTH_SHORT).show()
+                }
+            }
     }
+
 
     fun saveData() {
         activityUtil.setFullScreenLoading(true)
